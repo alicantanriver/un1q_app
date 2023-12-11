@@ -3,10 +3,9 @@ import 'package:provider/provider.dart';
 //! find a way to fix this
 // ignore: depend_on_referenced_packages
 import 'package:google_fonts/google_fonts.dart';
-import 'package:un1q_app/models/cart_item.dart';
-import 'package:un1q_app/models/product.dart';
+import 'package:un1q_app/models/cart.dart';
+import 'package:un1q_app/models/category.dart';
 import 'package:un1q_app/views/categories_view.dart';
-import 'package:un1q_app/views/checkout_view.dart';
 import 'package:un1q_app/views/product_info_view.dart';
 
 /// This feature is to set the theme and routes for the app. It does this by referencing the [main] class and it outputs the main app class [main].
@@ -34,10 +33,10 @@ class _AppState extends State<App> with WidgetsBindingObserver {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => CartItem(product: Product()),
+          create: (context) => Category(),
         ),
         ChangeNotifierProvider(
-          create: (context) => Product(),
+          create: (context) => Cart(),
         ),
       ],
       child: MaterialApp(
@@ -178,8 +177,8 @@ class _AppState extends State<App> with WidgetsBindingObserver {
           // "/": (_) => const CategoriesView(),
           "/app": (_) => const App(),
           "/categories": (context) => const CategoriesView(),
-          "/instructions-for-use": (context) => const ProductInfoView(),
-          "/consent-form": (context) => const CheckoutView(),
+          "/product-info-view": (context) => const ProductInfoView(),
+          // "/checkout-view": (context) => const CheckoutView(),
         },
       ),
     );

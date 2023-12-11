@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:un1q_app/views/product_info_view.dart';
+import 'package:un1q_app/categories_controller.dart';
+import 'package:un1q_app/models/taxon.dart';
 
-class CategoriesView extends StatelessWidget {
+class CategoriesView extends StatefulWidget {
   const CategoriesView({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  State<CategoriesView> createState() => CategoriesController();
+
+  Widget build(BuildContext context, CategoriesController controller) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -17,57 +20,52 @@ class CategoriesView extends StatelessWidget {
           ),
         ),
       ),
-      body: const Row(
-        children: [
-          Expanded(
-            child: CategoryColumn(
-              categories: [
-                {'name': 'Mexican', 'image': 'assets/images/taco.png'},
-                {
-                  'name': 'Fast Food',
-                  'image': 'assets/images/french-fries.png'
-                },
-                {'name': 'Vegetarian', 'image': 'assets/images/salad.png'},
-              ],
-            ),
-          ),
-          Expanded(
-            child: CategoryColumn(categories: [
-              {'name': 'Asian', 'image': 'assets/images/sushi.png'},
-              {'name': 'American', 'image': 'assets/images/burger.png'},
-              {'name': 'Italian', 'image': 'assets/images/pizza.png'},
-            ]),
-          ),
-        ],
-      ),
+      body: Center(
+          child: FutureBuilder<List<Taxon>?>(
+              future: controller.futureTaxon,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  List<Taxon> taxons = snapshot.data!;
+                  return ListView.builder(
+                      itemCount: taxons.length,
+                      itemBuilder: (context, index) {
+                        return CategoryItem(
+                          taxon: taxons[index],
+                          controller: controller,
+                        );
+                      });
+                } else if (snapshot.hasError) {
+                  return Text('${snapshot.error}');
+                }
+                return const CircularProgressIndicator();
+              })),
     );
   }
 }
 
-class CategoryColumn extends StatelessWidget {
-  final List<Map<String, dynamic>> categories;
+// class CategoryColumn extends StatelessWidget {
+//   final List<Map<String, dynamic>> categories;
 
-  const CategoryColumn({Key? key, required this.categories}) : super(key: key);
+//   const CategoryColumn({Key? key, required this.categories}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: categories
-          .map((category) => CategoryItem(
-                categoryName: category['name'],
-                categoryImage: category['image'],
-              ))
-          .toList(),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Column(
+//       children: categories
+//           .map((category) => CategoryItem(
+//                 categoryName: category['name'],
+//                 categoryImage: category['image'],
+//               ))
+//           .toList(),
+//     );
+//   }
+// }
 
 class CategoryItem extends StatelessWidget {
-  final String categoryName;
-  final String categoryImage;
+  final Taxon taxon;
+  final CategoriesController? controller;
 
-  const CategoryItem(
-      {Key? key, required this.categoryName, required this.categoryImage})
+  const CategoryItem({Key? key, required this.taxon, this.controller})
       : super(key: key);
 
   @override
@@ -76,20 +74,14 @@ class CategoryItem extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
         onTap: () {
-          // Navigate to the product info screen for the selected category
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const ProductInfoView(),
-            ),
-          );
+          return controller?.onTaxonPressed(taxon);
         },
         child: Card(
           elevation: 3.0,
           child: Column(
             children: [
               Image.asset(
-                categoryImage,
+                'assets/images/${taxon.name}.png',
                 height: 100.0,
                 width: double.infinity,
                 fit: BoxFit.contain,
@@ -97,7 +89,7 @@ class CategoryItem extends StatelessWidget {
               ListTile(
                 title: Center(
                   child: Text(
-                    categoryName,
+                    taxon.name,
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
