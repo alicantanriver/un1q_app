@@ -1,80 +1,73 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:un1q_app/categories_controller.dart';
+import 'package:provider/provider.dart';
+import 'package:un1q_app/models/category.dart';
 import 'package:un1q_app/models/taxon.dart';
+import 'package:un1q_app/services/food_api_service.dart';
+import 'package:un1q_app/views/product_info_view.dart';
 
-class CategoriesView extends StatefulWidget {
+class CategoriesView extends StatelessWidget {
   const CategoriesView({super.key});
 
   @override
-  State<CategoriesView> createState() => CategoriesController();
-
-  Widget build(BuildContext context, CategoriesController controller) {
+  Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Categories',
-          style: GoogleFonts.inter(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
+        appBar: AppBar(
+          title: Text(
+            'Categories',
+            style: GoogleFonts.inter(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
-      ),
-      body: Center(
-          child: FutureBuilder<List<Taxon>?>(
-              future: controller.futureTaxon,
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  List<Taxon> taxons = snapshot.data!;
-                  return ListView.builder(
-                      itemCount: taxons.length,
-                      itemBuilder: (context, index) {
-                        return CategoryItem(
-                          taxon: taxons[index],
-                          controller: controller,
-                        );
-                      });
-                } else if (snapshot.hasError) {
-                  return Text('${snapshot.error}');
-                }
-                return const CircularProgressIndicator();
-              })),
-    );
+        body: <Widget>[const CategoryList(), const ProductInfoView()][0]);
   }
 }
 
-// class CategoryColumn extends StatelessWidget {
-//   final List<Map<String, dynamic>> categories;
-
-//   const CategoryColumn({Key? key, required this.categories}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Column(
-//       children: categories
-//           .map((category) => CategoryItem(
-//                 categoryName: category['name'],
-//                 categoryImage: category['image'],
-//               ))
-//           .toList(),
-//     );
-//   }
-// }
-
-class CategoryItem extends StatelessWidget {
-  final Taxon taxon;
-  final CategoriesController? controller;
-
-  const CategoryItem({Key? key, required this.taxon, this.controller})
-      : super(key: key);
+class CategoryList extends StatelessWidget {
+  const CategoryList({super.key});
 
   @override
   Widget build(BuildContext context) {
+    return Center(
+        child: FutureBuilder<List<Taxon>?>(
+            future: FoodService.getTaxons(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                List<Taxon> taxons = snapshot.data!;
+                return ListView.builder(
+                    itemCount: taxons.length,
+                    itemBuilder: (context, index) {
+                      return CategoryItem(taxon: taxons[index]);
+                    });
+              } else if (snapshot.hasError) {
+                return Text('${snapshot.error}');
+              }
+              return const CircularProgressIndicator();
+            }));
+  }
+}
+
+class CategoryItem extends StatelessWidget {
+  final Taxon taxon;
+
+  const CategoryItem({Key? key, required this.taxon}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    Category category = Provider.of<Category>(context, listen: false);
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
         onTap: () {
-          return controller?.onTaxonPressed(taxon);
+          category.setTaxon(taxon);
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => const ProductInfoView(),
+            ),
+          );
         },
         child: Card(
           elevation: 3.0,

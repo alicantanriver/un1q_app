@@ -18,20 +18,12 @@ class Food extends ChangeNotifier {
   });
 
   factory Food.fromJson(Map<String, dynamic> json) {
-    final List<dynamic> img = json['variants'][0]['media'];
-    String imgSrc;
-    if (img.isNotEmpty) {
-      imgSrc = json['variants'][0]['media'][0]['responsive_images']['src'];
-    } else {
-      imgSrc = '';
-    }
-
     return Food(
         name: json['title'],
         slug: json['slug'],
         description: json['description'],
         price: json['variants'][0]['price']['amount'] as int,
         formattedPrice: json['variants'][0]['price']['formatted'],
-        image: imgSrc);
+        image: json['media'][0]['url']);
   }
 }
