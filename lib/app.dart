@@ -33,7 +33,6 @@ class _AppState extends State<App> with WidgetsBindingObserver {
         ),
       ],
       child: MaterialApp(
-          title: "rCP",
           home: Scaffold(
             body: <Widget>[
               const CategoriesView(),
@@ -63,36 +62,22 @@ class _AppState extends State<App> with WidgetsBindingObserver {
           ),
           theme: ThemeData(
             useMaterial3: true,
-
-            ///Floral White
             scaffoldBackgroundColor: const Color(0xFFFFF8F0),
-
-            ///Midnight Green
             textTheme: Theme.of(context).textTheme.apply(
                   fontFamily: GoogleFonts.gothicA1().fontFamily,
                   bodyColor: const Color(0xFF104547),
                   displayColor: const Color(0xFF174547),
                 ),
-
             colorScheme: const ColorScheme.light(
-              ///Floral White
               primary: Color(0xFFFFF8F0),
-
-              ///Midnight Green
               secondary: Color(0xFF174547),
-
-              ///Cambridge Blue
               tertiary: Color(0xFF68A691),
             ),
-
             appBarTheme: AppBarTheme(
-              ///Floral White
               backgroundColor: const Color(0xFFFFF8F0),
               centerTitle: true,
               iconTheme: IconThemeData(
-                ///Midnight Green
                 color: const Color(0xFF174547),
-
                 shadows: [
                   Shadow(
                     color: const Color(0xFF174547).withOpacity(0.4),
@@ -102,13 +87,10 @@ class _AppState extends State<App> with WidgetsBindingObserver {
                 ],
               ),
               actionsIconTheme: const IconThemeData(
-                ///Midnight Green
                 color: Color(0xFF174547),
-
                 shadows: [],
               ),
             ),
-
             filledButtonTheme: FilledButtonThemeData(
               style: ButtonStyle(
                 backgroundColor:
@@ -122,7 +104,6 @@ class _AppState extends State<App> with WidgetsBindingObserver {
                 iconSize: MaterialStateProperty.all<double>(35),
                 textStyle: MaterialStateProperty.all<TextStyle>(
                   const TextStyle(
-                    ///Cambridge Blue
                     color: Color(0xFFFFF8F0),
                     fontSize: 25,
                   ),
@@ -135,11 +116,8 @@ class _AppState extends State<App> with WidgetsBindingObserver {
             ),
             iconButtonTheme: IconButtonThemeData(
               style: ButtonStyle(
-                ///Midnight Green
                 shadowColor:
                     MaterialStateProperty.all<Color>(const Color(0xFF174547)),
-
-                ///Midnight Green
                 iconColor:
                     MaterialStateProperty.all<Color>(const Color(0xFF174547)),
               ),

@@ -88,8 +88,6 @@ class _ProductInfoViewState extends State<ProductInfoView> {
                                                         Icons.remove)),
                                                 Text(
                                                   '${cart.foods.where((el) => el.name == foods[index].name).length}',
-                                                  // style: const TextStyle(
-                                                  //     fontSize: 15),
                                                 ),
                                                 GestureDetector(
                                                     onTap: () => cart
@@ -103,7 +101,6 @@ class _ProductInfoViewState extends State<ProductInfoView> {
                                       ],
                                     ),
                                   ),
-                                  // const SizedBox(width: 16.0),
                                   Column(
                                     children: [
                                       Padding(
@@ -121,7 +118,7 @@ class _ProductInfoViewState extends State<ProductInfoView> {
                                             fontWeight: FontWeight.bold),
                                       ),
                                     ],
-                                  ), // Add some space between text and image
+                                  ),
                                 ],
                               ),
                             ),

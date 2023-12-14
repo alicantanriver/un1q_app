@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:un1q_app/app.dart';
 import 'package:un1q_app/models/cart.dart';
 
 class CartView extends StatefulWidget {
@@ -47,11 +48,14 @@ class _CartViewState extends State<CartView> {
                                   .toDouble()))
                         ],
                       ),
-                      leading: Image.network(
-                        uniqueFoods[index].food.image,
-                        width: 60.0,
-                        height: 80.0,
-                        fit: BoxFit.cover,
+                      leading: Padding(
+                        padding: const EdgeInsets.all(1.0),
+                        child: Image.network(
+                          uniqueFoods[index].food.image,
+                          width: 60.0,
+                          height: 80.0,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                       trailing: IconButton(
                         icon: const Icon(Icons.delete),
@@ -64,7 +68,6 @@ class _CartViewState extends State<CartView> {
                 ),
               ),
               const SizedBox(height: 16.0),
-              // add the delivery fee text
               Column(mainAxisAlignment: MainAxisAlignment.center, children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -93,7 +96,6 @@ class _CartViewState extends State<CartView> {
                               fontSize: 20.0, fontWeight: FontWeight.bold))
                     ])
               ]),
-              // add a checkout button that clears the total amount
               const SizedBox(height: 16.0),
               FilledButton(
                 style: ButtonStyle(
@@ -109,7 +111,11 @@ class _CartViewState extends State<CartView> {
                           "Your order has been successfully placed, and we're getting started on preparing your delicious meal. "),
                       actions: [
                         FilledButton(
-                          onPressed: () => Navigator.of(context).pop(),
+                          onPressed: () => Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const App()),
+                          ),
                           child: const Text("OK"),
                         ),
                       ],
