@@ -8,12 +8,9 @@ import 'package:un1q_app/views/cart_view.dart';
 import 'package:un1q_app/views/categories_view.dart';
 
 /// This feature is to set the theme and routes for the app. It does this by referencing the [main] class and it outputs the main app class [main].
-/// It uses CompatibilityService to check if the device is compatible with the app. If it is not, it will display the [CompatibilityView]. If it is, it will display the app. otherwise, it will display the [CompatabilityView] screen.
-/// It also uses [MultiProvider] to provide the [MeasurementState], [PatientContextModel], [ProcessedDataModel], and [ResultController] to the app.
+/// It also uses [MultiProvider] to provide the [Category], and [Cart] to the app.
 ///  It also uses [MaterialApp] to set the theme for the app.
-/// It also uses [initialRoute] to set the initial route for the app.
-/// It also uses [routes] to set the routes for the app. It also uses [WidgetsBindingObserver] to observe the app's lifecycle. It also uses [AnalyticsController] to log the time spent on the app and the button presses.
-///  It also uses [RestartAppOnReload] to restart the app when the app is reloaded.
+/// It also uses [routes] to set the routes for the app. It also uses [WidgetsBindingObserver] to observe the app's lifecycle.
 class App extends StatefulWidget {
   const App({super.key});
 
@@ -22,9 +19,9 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> with WidgetsBindingObserver {
-  @override
   int selectedPageIndex = 0;
 
+  @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
@@ -114,64 +111,20 @@ class _AppState extends State<App> with WidgetsBindingObserver {
 
             filledButtonTheme: FilledButtonThemeData(
               style: ButtonStyle(
-                ///Cambridge Blue
                 backgroundColor:
-                    MaterialStateProperty.all<Color>(const Color(0xFF68A691)),
-
-                ///Floral White
+                    MaterialStateProperty.all<Color>(const Color(0xE8FFCA51)),
                 foregroundColor:
-                    MaterialStateProperty.all<Color>(const Color(0xFFFFF8F0)),
-
-                ///Cambridge Blue
+                    MaterialStateProperty.all<Color>(const Color(0xFF181818)),
                 shadowColor:
                     MaterialStateProperty.all<Color>(const Color(0xFF68A691)),
-
-                ///Floral White
                 iconColor:
                     MaterialStateProperty.all<Color>(const Color(0xFFFFF8F0)),
-
                 iconSize: MaterialStateProperty.all<double>(35),
-
                 textStyle: MaterialStateProperty.all<TextStyle>(
                   const TextStyle(
                     ///Cambridge Blue
                     color: Color(0xFFFFF8F0),
-                    fontSize: 30,
-                  ),
-                ),
-                padding: MaterialStateProperty.all<EdgeInsets>(
-                  const EdgeInsets.symmetric(horizontal: 25, vertical: 12),
-                ),
-                elevation: MaterialStateProperty.all<double>(3),
-              ),
-            ),
-            outlinedButtonTheme: OutlinedButtonThemeData(
-              style: ButtonStyle(
-                ///Floral White
-                backgroundColor:
-                    MaterialStateProperty.all<Color>(const Color(0xFFFFF8F0)),
-
-                ///Cambridge Blue
-                foregroundColor:
-                    MaterialStateProperty.all<Color>(const Color(0xFF68A691)),
-
-                ///Cambridge Blue
-                shadowColor:
-                    MaterialStateProperty.all<Color>(const Color(0xFF68A691)),
-
-                side: MaterialStateProperty.all<BorderSide>(
-                  const BorderSide(
-                    ///Cambridge Blue
-                    color: Color(0xFF68A691),
-                    width: 1,
-                  ),
-                ),
-
-                textStyle: MaterialStateProperty.all<TextStyle>(
-                  const TextStyle(
-                    ///Midnight Green
-                    color: Color(0xFF174547),
-                    fontSize: 30,
+                    fontSize: 25,
                   ),
                 ),
                 padding: MaterialStateProperty.all<EdgeInsets>(

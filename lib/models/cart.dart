@@ -46,7 +46,7 @@ class Cart extends ChangeNotifier {
     for (var element in foods) {
       cartTotal += element.price;
     }
-    return cartTotal / 100;
+    return cartTotal;
   }
 
   void clearCart() {
@@ -60,5 +60,9 @@ class Cart extends ChangeNotifier {
 
   double calculateGrandTotal() {
     return calculateTotal() + calculateDeliveryFee();
+  }
+
+  String convertPriceToFormattedString(double price) {
+    return '€ ${(price / 100).toStringAsFixed(2)}';
   }
 }
