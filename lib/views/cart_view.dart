@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:un1q_app/app.dart';
 import 'package:un1q_app/models/cart.dart';
+import 'package:un1q_app/models/unique_food.dart';
 
 class CartView extends StatefulWidget {
   const CartView({super.key});
@@ -23,7 +24,7 @@ class _CartViewState extends State<CartView> {
           title: Text(
             'Order',
             style: GoogleFonts.inter(
-                color: Colors.black, fontWeight: FontWeight.bold, fontSize: 25),
+                color: Colors.black, fontWeight: FontWeight.bold),
           ),
         ),
         body: Padding(

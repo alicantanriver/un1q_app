@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:un1q_app/main.dart';
 import 'package:un1q_app/models/cart.dart';
 import 'package:un1q_app/models/category.dart';
 import 'package:un1q_app/views/cart_view.dart';
 import 'package:un1q_app/views/categories_view.dart';
 
-/// This feature is to set the theme and routes for the app. It does this by referencing the [main] class and it outputs the main app class [main].
-/// It also uses [MultiProvider] to provide the [Category], and [Cart] to the app.
-///  It also uses [MaterialApp] to set the theme for the app.
-/// It also uses [routes] to set the routes for the app. It also uses [WidgetsBindingObserver] to observe the app's lifecycle.
 class App extends StatefulWidget {
   const App({super.key});
 

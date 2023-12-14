@@ -1,6 +1,3 @@
-// write a api service that gets food data from Service
-// and returns a list of Food objects
-
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;

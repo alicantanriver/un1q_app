@@ -1,12 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:un1q_app/models/food.dart';
-
-class UniqueFood {
-  final Food food;
-  final int quantity;
-
-  UniqueFood(this.food, this.quantity);
-}
+import 'package:un1q_app/models/unique_food.dart';
 
 class Cart extends ChangeNotifier {
   late List<Food> foods = [];

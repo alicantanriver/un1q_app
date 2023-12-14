@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-
-class Food extends ChangeNotifier {
+class Food {
   final String name;
   final String slug;
   final String description;

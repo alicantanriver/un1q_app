@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:un1q_app/models/cart.dart';
 import 'package:un1q_app/models/category.dart';
@@ -21,7 +22,11 @@ class _ProductInfoViewState extends State<ProductInfoView> {
 
     return Scaffold(
         appBar: AppBar(
-          title: Text(taxon!.metaTitle),
+          title: Text(
+            taxon!.metaTitle,
+            style: GoogleFonts.inter(
+                color: Colors.black, fontWeight: FontWeight.bold),
+          ),
         ),
         body: FutureBuilder<List<Food>?>(
           future: FoodService.getFoods(taxon.name),
